@@ -1,0 +1,65 @@
+stop_signs = ''.join({',', '.', '?', '+', '-', '=', '—'})
+
+def clean_stop_signs(string):
+    for stop_sign in stop_signs:
+        string = string.replace(stop_sign, '')
+    return string
+
+stopwords = {'a', 'aby', 'ach', 'acz', 'aczkolwiek', 'aj', 'albo', 'ale',
+             'ale\xc5\xbc', 'ani', 'a\xc5\xbc', 'bardziej', 'bardzo',
+             'bo', 'bowiem', 'by', 'byli', 'bynajmniej', 'by\xc4\x87',
+             'by\xc5\x82', 'by\xc5\x82a', 'by\xc5\x82o', 'by\xc5\x82y',
+             'b\xc4\x99dzie', 'b\xc4\x99d\xc4\x85', 'cali',
+             'ca\xc5\x82a', 'ca\xc5\x82y', 'ci', 'ci\xc4\x99', 'ciebie',
+             'co', 'cokolwiek', 'co\xc5\x9b', 'czasami', 'czasem',
+             'czemu', 'czy', 'czyli', 'daleko', 'dla', 'dlaczego',
+             'dlatego', 'do', 'dobrze', 'dok\xc4\x85d',
+             'do\xc5\x9b\xc4\x87', 'du\xc5\xbco', 'dwa', 'dwaj', 'dwie',
+             'dwoje', 'dzi\xc5\x9b', 'dzisiaj', 'gdy', 'gdyby',
+             'gdy\xc5\xbc', 'gdzie', 'gdziekolwiek', 'gdzie\xc5\x9b',
+             'i', 'ich', 'ile', 'im', 'inna', 'inne', 'inny', 'innych',
+             'i\xc5\xbc', 'ja', 'j\xc4\x85', 'jak', 'jaka\xc5\x9b',
+             'jakby', 'jaki', 'jakich\xc5\x9b', 'jakie', 'jaki\xc5\x9b',
+             'jaki\xc5\xbc', 'jakkolwiek', 'jako', 'jako\xc5\x9b', 'je',
+             'jeden', 'jedna', 'jedno', 'jednak', 'jednak\xc5\xbce',
+             'jego', 'jej', 'jemu', 'jest', 'jestem', 'jeszcze',
+             'je\xc5\x9bli', 'je\xc5\xbceli', 'ju\xc5\xbc', 'j\xc4\x85',
+             'ka\xc5\xbcdy', 'kiedy', 'kilka', 'kim\xc5\x9b', 'kto',
+             'ktokolwiek', 'kto\xc5\x9b', 'kt\xc3\xb3ra', 'kt\xc3\xb3re',
+             'kt\xc3\xb3rego', 'kt\xc3\xb3rej', 'kt\xc3\xb3ry',
+             'kt\xc3\xb3rych', 'kt\xc3\xb3rym', 'kt\xc3\xb3rzy', 'ku',
+             'lat', 'lecz', 'lub', 'ma', 'maj\xc4\x85', 'ma\xc5\x82o',
+             'mam', 'mi', 'mimo', 'mi\xc4\x99dzy', 'mn\xc4\x85', 'mnie',
+             'mog\xc4\x85', 'moi', 'moim', 'moja', 'moje', 'mo\xc5\xbce',
+             'mo\xc5\xbcliwe', 'mo\xc5\xbcna', 'm\xc3\xb3j', 'mu',
+             'musi', 'my', 'na', 'nad', 'nam', 'nami', 'nas', 'nasi',
+             'nasz', 'nasza', 'nasze', 'naszego', 'naszych', 'natomiast',
+             'natychmiast', 'nawet', 'ni\xc4\x85', 'nic', 'nich', 'nie',
+             'niech', 'niego', 'niej', 'niemu', 'nigdy', 'nim', 'nimi',
+             'ni\xc5\xbc', 'no', 'o', 'obok', 'od', 'oko\xc5\x82o', 'on',
+             'ona', 'one', 'oni', 'ono', 'oraz', 'oto', 'owszem', 'pan',
+             'pana', 'pani', 'po', 'pod', 'podczas', 'pomimo', 'ponad',
+             'poniewa\xc5\xbc', 'powinien', 'powinna', 'powinni',
+             'powinno', 'poza', 'prawie', 'przecie\xc5\xbc', 'przed',
+             'przede', 'przedtem', 'przez', 'przy', 'roku',
+             'r\xc3\xb3wnie\xc5\xbc', 'sam', 'sama',
+             's\xc4\x85', 'si\xc4\x99', 'sk\xc4\x85d', 'sobie',
+             'sob\xc4\x85', 'spos\xc3\xb3b', 'swoje', 'ta', 'tak',
+             'taka', 'taki', 'takie', 'tak\xc5\xbce', 'tam', 'te',
+             'tego', 'tej', 'temu', 'ten', 'teraz', 'te\xc5\xbc', 'to',
+             'tob\xc4\x85', 'tobie', 'tote\xc5\xbc', 'trzeba', 'tu',
+             'tutaj', 'twoi', 'twoim', 'twoja', 'twoje', 'twym',
+             'tw\xc3\xb3j', 'ty', 'tych', 'tylko', 'tym', 'u', 'w',
+             'wam', 'wami', 'was', 'wasz', 'wasza', 'wasze', 'we',
+             'wed\xc5\x82ug', 'wiele', 'wielu', 'wi\xc4\x99c',
+             'wi\xc4\x99cej', 'wszyscy', 'wszystkich', 'wszystkie',
+             'wszystkim', 'wszystko', 'wtedy', 'wy',
+             'w\xc5\x82a\xc5\x9bnie', 'z', 'za', 'zapewne', 'zawsze',
+             'ze', 'z\xc5\x82', 'znowu', 'zn\xc3\xb3w', 'zosta\xc5\x82',
+             '\xc5\xbcaden', '\xc5\xbcadna', '\xc5\xbcadne',
+             '\xc5\xbcadnych', '\xc5\xbce', '\xc5\xbceby',
+             # dopisane
+             'naszej', 'się', 'więc'}
+
+def in_stop_words(string):
+    return string in stopwords
